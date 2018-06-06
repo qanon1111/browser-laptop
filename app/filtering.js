@@ -741,34 +741,42 @@ function setupTor () {
   const torDaemon = new tor.TorDaemon()
   torDaemon.setup((err) => {
     if (err) {
-      console.log(`tor: failed to make directories: ${err}`)
+      appActions.onTorInitError(`tor failed to make directories: ${err}`)
       return
     }
-    torDaemon.on('exit', () => console.log('tor: daemon exited'))
+    torDaemon.on('exit', () => {
+      appActions.onTorInitError('The Tor process has stopped.')
+    })
     torDaemon.on('launch', (socksAddr) => {
       console.log(`tor: daemon listens on ${socksAddr}`)
       const bootstrapped = (err, progress) => {
         // TODO(riastradh): Visually update a progress bar!
         if (err) {
-          console.log(`tor: bootstrap error: ${err}`)
+          appActions.onTorInitError(`tor: bootstrap error: ${err}`)
           return
         }
-        console.log(`tor: bootstrapped ${progress}%`)
+        appActions.onTorInitPercentage(progress)
       }
       const circuitEstablished = (err, ok) => {
         if (ok) {
-          console.log(`tor: ready`)
+          appActions.onTorInitSuccess()
         } else {
-          console.log(err ? `tor: not ready: ${err}` : `tor: not ready`)
+          if (err) {
+            appActions.onTorInitError(`tor: not ready: ${err}`)
+          } else {
+            // Simply log the error but don't show error UI since Tor might
+            // finish opening a circuit.
+            console.log('tor still not ready')
+          }
         }
       }
       torDaemon.onBootstrap(bootstrapped, (err) => {
         if (err) {
-          console.log(`tor: error subscribing to bootstrap: ${err}`)
+          appActions.onTorInitError(`tor: error subscribing to bootstrap: ${err}`)
         }
         torDaemon.onCircuitEstablished(circuitEstablished, (err) => {
           if (err) {
-            console.log(`tor: error subscribing to circuit ready: ${err}`)
+            appActions.onTorInitError(`tor: error subscribing to circuit ready: ${err}`)
           }
         })
       })

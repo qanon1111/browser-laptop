@@ -213,6 +213,7 @@ var rendererIdentifiers = function () {
     'smartphoneTitle',
     'updateLater',
     'updateHello',
+    'urlbarPlaceholder',
     // notifications
     'notificationPasswordWithUserName',
     'notificationUpdatePasswordWithUserName',
