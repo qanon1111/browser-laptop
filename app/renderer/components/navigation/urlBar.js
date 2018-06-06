@@ -394,11 +394,13 @@ class UrlBar extends React.Component {
   get placeholderValue () {
     if (this.props.isTor) {
       if (this.props.torInitializationError) {
-        return `Could not connect to the Tor network: ${this.props.torInitializationError}`
+        return `${locale.translation('urlbarPlaceholderTorFail')}: ${this.props.torInitializationError}`
       } else if (this.props.torPercentInitialized) {
-        return `Connecting to the Tor network: ${this.props.torPercentInitialized}%`
+        return `${locale.translation('urlbarPlaceholderTorProgress')}: ${this.props.torPercentInitialized}%`
       } else if (this.props.torInitializationError === false) {
-        return `Successfully connected to the Tor network!`
+        return locale.translation('urlbarPlaceholderTorSuccess')
+      } else {
+        return `${locale.translation('urlbarPlaceholderTorProgress')}...`
       }
     }
     return locale.translation('urlbarPlaceholder')
@@ -516,7 +518,7 @@ class UrlBar extends React.Component {
   get shouldDisable () {
     return (this.props.displayURL === undefined && this.loadTime === '') ||
       (this.props.isTor &&
-        (this.props.torPercentInitialized || this.props.torInitializationError))
+        (this.props.torPercentInitialized || this.props.torInitializationError !== false))
   }
 
   render () {

@@ -759,6 +759,7 @@ function setupTor () {
       }
       const circuitEstablished = (err, ok) => {
         if (ok) {
+          console.log('Tor ready!')
           appActions.onTorInitSuccess()
         } else {
           if (err) {

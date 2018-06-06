@@ -214,6 +214,9 @@ var rendererIdentifiers = function () {
     'updateLater',
     'updateHello',
     'urlbarPlaceholder',
+    'urlbarPlaceholderTorSuccess',
+    'urlbarPlaceholderTorFail',
+    'urlbarPlaceholderTorProgress',
     // notifications
     'notificationPasswordWithUserName',
     'notificationUpdatePasswordWithUserName',
