@@ -582,11 +582,12 @@ const styles = StyleSheet.create({
   },
 
   tabArea_isInactiveLoading: {
-    '--tab-content-opacity': '.5'
+    '--tab-content-opacity': '1'
+
   },
 
   tabArea_isUnloaded: {
-    '--tab-content-opacity': '.5'
+    '--tab-content-opacity': '1'
   },
 
   tabArea_siblingIsPreview: {
@@ -595,7 +596,6 @@ const styles = StyleSheet.create({
     // but have the last previewed tab wait to be underneath the next tab in the DOM
     '--tab-zindex-delay': '0s',
     '--tab-zindex-duration': '2s'
-    // willChange: 'transform'
   },
 
   tabArea_isActive_siblingIsPreview: {
