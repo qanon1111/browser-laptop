@@ -233,6 +233,7 @@ const handleAppAction = (action) => {
       require('../../app/browser/reducers/aboutNewTabReducer'),
       require('../../app/browser/reducers/braverySettingsReducer'),
       require('../../app/browser/reducers/siteSettingsReducer'),
+      require('../../app/browser/reducers/torReducer'),
       require('../../app/browser/reducers/pageDataReducer'),
       ledgerReducer,
       require('../../app/browser/menu')
@@ -400,9 +401,6 @@ const handleAppAction = (action) => {
           }))
         }
       }
-      break
-    case appConstants.APP_SET_TOR_NEW_IDENTITY:
-      filtering.setTorNewIdentity(action.url, action.tabId)
       break
     case appConstants.APP_ON_CLEAR_BROWSING_DATA:
       const defaults = appState.get('clearBrowsingDataDefaults')
