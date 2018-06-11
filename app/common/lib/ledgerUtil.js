@@ -181,7 +181,7 @@ const contributeP = (state, publisherKey) => {
 }
 
 // TODO rename function
-const visibleP = (state, publisherKey) => {
+const visibleP = (state, publisherKey, ignoreEligible = false) => {
   const publisher = ledgerState.getPublisher(state, publisherKey)
   let showOnlyVerified = ledgerState.getSynopsisOption(state, 'showOnlyVerified')
 
@@ -196,7 +196,7 @@ const visibleP = (state, publisherKey) => {
 
   // Publisher Options
   const deletedByUser = blockedP(state, publisherKey)
-  const eligibleByStats = eligibleP(state, publisherKey) // num of visits and time spent
+  const eligibleByStats = ignoreEligible || eligibleP(state, publisherKey) // num of visits and time spent
   const verifiedPublisher = publisherOptions.get('verified')
   const isPinned = pinPercentage && pinPercentage > 0
 
